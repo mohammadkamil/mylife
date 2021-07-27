@@ -67,14 +67,14 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 |--------|---|------|--------|-----------|
 |GET/HEAD| /|index| App\Http\Controllers\UserController@index| web|
 |POST |api/auth/login| |App\Http\Controllers\AuthController@login| api|
-|POST| api/auth/logout|| App\Http\Controllers\AuthController@logout| auth:api|
+|POST| api/auth/logout| | App\Http\Controllers\AuthController@logout| auth:api|
 
-|GET/HEAD| api/auth/profile|| App\Http\Controllers\AuthController@profile| api
+|GET/HEAD| api/auth/profile| | App\Http\Controllers\AuthController@profile| api
 auth:api|
-|POST| api/auth/refresh|| App\Http\Controllers\AuthController@refresh| api
+|POST| api/auth/refresh| | App\Http\Controllers\AuthController@refresh| api
 auth:api|
-|POST| api/auth/register|| App\Http\Controllers\AuthController@register| api|
-|GET/HEAD |api/commentbyid|| App\Http\Controllers\ComentsController@commentbyid| api
+|POST| api/auth/register| | App\Http\Controllers\AuthController@register| api|
+|GET/HEAD |api/commentbyid| | App\Http\Controllers\ComentsController@commentbyid| api
 auth:api|
 |GET/HEAD| api/comments| comments.index| App\Http\Controllers\ComentsController@index| api
 auth:api|
