@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coments;
+use App\Models\Comments;
+use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ComentsController extends Controller
 {
+    protected $user;
+
+
     public function __construct()
     {
-        $this->middleware('auth:api',['except' => ['index','show']]);
+        $this->middleware('auth:api');
         $this->user = $this->guard()->user();
 
     }//end __construct()
@@ -24,12 +29,28 @@ class ComentsController extends Controller
      */
     public function index()
     {
-        $todos = $this->user->coments->get(['id', 'coment', 'user_id']);
-        return response()->json($todos->toArray());
+        $comment=Comments::orderBy('created_at', 'desc')->cursorPaginate(1);
+        // $comments = $this->user->posts()->get(['id', 'post', 'user_id','liked']);
+        return response()->json(
+            [
+                'comment' => $comment,
+                'user' => $this->user,
+            ]);
 
     }//end index()
 
+    public function commentbyid(Request $request)
+    {
+        $comment=Comments::with('post')->where("post_id","=",$request->post_id)->orderBy('created_at', 'desc')->cursorPaginate(1);
+        $post=Posts::find($request->post_id);     // $comments = $this->user->posts()->get(['id', 'post', 'user_id','liked']);
+        return response()->json(
+            [
+                'comment' => $comment,
+                'user' => $this->user,
+                'post'=>$post
+            ]);
 
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -42,7 +63,7 @@ class ComentsController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'post'     => 'required|string',
+                'comment'     => 'required|string',
 
             ]
         );
@@ -57,23 +78,26 @@ class ComentsController extends Controller
             );
         }
 
-        $coments           = new Coments();
-        $coments->post     = $request->coment;
-        $coments->user_id     = $this->user->id;
+        $comment           = new Comments();
+        $comment->coment=$request->comment;
+        $comment->post_id     = $request->post_id;
+        $comment->user_id     = $this->user->id;
 
-
-        if ($coments->save()) {
+        if ($comment->save()) {
+            $post=Posts::find($request->post_id);
+            $post->updated_at = date('Y-m-d G:i:s');
+            $post->save();
             return response()->json(
                 [
                     'status' => true,
-                    'todo'   => $coments,
+                    'comment'   => $comment,
                 ]
             );
         } else {
             return response()->json(
                 [
                     'status'  => false,
-                    'message' => 'Oops, the todo could not be saved.',
+                    'message' => 'Oops, the comment could not be saved.',
                 ]
             );
         }
@@ -84,12 +108,15 @@ class ComentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Todo $todo
+     * @param  \App\Models\comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Coments $coments)
+    public function show($id)
     {
-        return $coments;
+        $posts=Comments::find($id);
+        // dd($posts);
+
+        return $posts;
 
     }//end show()
 
@@ -98,46 +125,11 @@ class ComentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Todo         $todo
+     * @param  \App\Models\comment         $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Coments $coments)
+    public function update(Request $request, Comments $comment)
     {
-        $validator = Validator::make(
-            $request->all(),
-            [
-                'posts'     => 'required|string',
-
-            ]
-        );
-
-        if ($validator->fails()) {
-            return response()->json(
-                [
-                    'status' => false,
-                    'errors' => $validator->errors(),
-                ],
-                400
-            );
-        }
-
-        $coments->coment     = $request->coment;
-
-        if ($coments->save()) {
-            return response()->json(
-                [
-                    'status' => true,
-                    'todo'   => $coments,
-                ]
-            );
-        } else {
-            return response()->json(
-                [
-                    'status'  => false,
-                    'message' => 'Oops, the todo could not be updated.',
-                ]
-            );
-        }
 
     }//end update()
 
@@ -145,23 +137,23 @@ class ComentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Todo $todo
+     * @param  \App\Models\comment $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Coments $coments)
+    public function destroy(Comments $comment)
     {
-        if ($coments->delete()) {
+        if ($comment->delete()) {
             return response()->json(
                 [
                     'status' => true,
-                    'todo'   => $coments,
+                    'comment'   => $comment,
                 ]
             );
         } else {
             return response()->json(
                 [
                     'status'  => false,
-                    'message' => 'Oops, the todo could not be deleted.',
+                    'message' => 'Oops, the comment could not be deleted.',
                 ]
             );
         }

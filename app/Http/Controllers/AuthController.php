@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -38,8 +39,9 @@ class AuthController extends Controller
         if (!$token = $this->guard()->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+        $cookie = cookie('jwt', $token, 60 * 24); // 1 day
 
-        return $this->respondWithToken($token);
+        return $this->respondWithToken($token)->withCookie($cookie);
 
     }//end login()
 
@@ -76,9 +78,11 @@ class AuthController extends Controller
 
     public function logout()
     {
+        $cookie = Cookie::forget('jwt');
+
         $this->guard()->logout();
 
-        return response()->json(['message' => 'User logged out successfully']);
+        return response()->json(['message' => 'User logged out successfully'])->withCookie($cookie);
 
     }//end logout()
 

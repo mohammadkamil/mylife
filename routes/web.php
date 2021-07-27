@@ -21,11 +21,13 @@ Route::group(
         'name'=>'life.'
     ],
     function ($router) {
-        Route::get('', [UserController::class,"index"])->middleware("auth:api")->name("index");
+        Route::get('', [UserController::class,"index"])->name("index");
+        Route::get('index', [UserController::class,"index"])->name("index2");
+
         Route::get('login',  [UserController::class,"login"])->name("login");
         Route::get('register', [UserController::class,"register"])->name("register");
         Route::get('logout',  [UserController::class,"logout"])->name("logout");
-        Route::get('profile', [UserController::class,"profile"])->middleware("auth:api")->name("profile");
+        Route::get('profile', [UserController::class,"profile"])->name("profile");
         Route::get('refresh',  [UserController::class,"refresh"])->name("refresh");
     }
 );

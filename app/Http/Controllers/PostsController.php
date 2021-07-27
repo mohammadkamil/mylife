@@ -14,7 +14,7 @@ class PostsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api',['except' => ['index','show']]);
+        $this->middleware('auth:api');
         $this->user = $this->guard()->user();
 
     }//end __construct()
@@ -27,8 +27,14 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $todos = $this->user->posts->get(['id', 'post', 'user_id','liked']);
-        return response()->json($todos->toArray());
+        $post=Posts::with('comment','like')->orderBy('updated_at', 'desc')->cursorPaginate(1);
+        // $post=Posts::with('comment','like')->orderBy('updated_at', 'desc')->get()->toArray();
+        // $posts = $this->user->posts()->get(['id', 'post', 'user_id','liked']);
+        return response()->json(
+            [
+                'post' => $post,
+                'user' => $this->user,
+            ]);
 
     }//end index()
 
@@ -69,14 +75,14 @@ class PostsController extends Controller
             return response()->json(
                 [
                     'status' => true,
-                    'todo'   => $posts,
+                    'post'   => $posts,
                 ]
             );
         } else {
             return response()->json(
                 [
                     'status'  => false,
-                    'message' => 'Oops, the todo could not be saved.',
+                    'message' => 'Oops, the post could not be saved.',
                 ]
             );
         }
@@ -87,11 +93,14 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Todo $todo
+     * @param  \App\Models\post $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Posts $posts)
+    public function show($id)
     {
+        $posts=Posts::with('comment','like','user')->find($id);
+        // dd($posts);
+
         return $posts;
 
     }//end show()
@@ -101,10 +110,10 @@ class PostsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Todo         $todo
+     * @param  \App\Models\post         $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Posts $posts)
+    public function update(Request $request)
     {
         $validator = Validator::make(
             $request->all(),
@@ -123,21 +132,21 @@ class PostsController extends Controller
                 400
             );
         }
-
-        $posts->post     = $request->post;
+        $posts=Posts::find($request->id);
+        $posts->post     = $request->posts;
 
         if ($posts->save()) {
             return response()->json(
                 [
                     'status' => true,
-                    'todo'   => $posts,
+                    'post'   => $posts,
                 ]
             );
         } else {
             return response()->json(
                 [
                     'status'  => false,
-                    'message' => 'Oops, the todo could not be updated.',
+                    'message' => 'Oops, the post could not be updated.',
                 ]
             );
         }
@@ -148,23 +157,24 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Todo $todo
+     * @param  \App\Models\post $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Posts $posts)
+    public function destroy(Request $request)
     {
+        $posts=Posts::find($request->id);
         if ($posts->delete()) {
             return response()->json(
                 [
                     'status' => true,
-                    'todo'   => $posts,
+                    'post'   => $posts,
                 ]
             );
         } else {
             return response()->json(
                 [
                     'status'  => false,
-                    'message' => 'Oops, the todo could not be deleted.',
+                    'message' => 'Oops, the post could not be deleted.',
                 ]
             );
         }

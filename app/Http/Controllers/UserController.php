@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
@@ -15,23 +16,50 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view("index");
+        // return view("index");
+        if(isset($_COOKIE['jwt'])){
+            // echo "DSDSA";
+            return view("index");
 
+
+        }
+        else{
+            return redirect()->route('login');
+
+        }
     }
     public function login(Request $request)
     {
+        $cookie=Cookie::get('jwt');
+        // dd($_COOKIE['jwt']);
 
+        if(isset($_COOKIE['jwt'])){
+            return redirect()->route('index');
+            // echo "DSDSA";
 
-        return view("login");
+        }
+        else{
+            return view("login");
+
+        }
+        // return view("login");
 
     }//end login()
 
 
     public function register(Request $request)
     {
+        $cookie=Cookie::get('jwt');
+        if(isset($_COOKIE['jwt'])){
+            // echo "DSDSA";
+            return redirect()->route('index');
 
+        }
+        else{
+            return view("register");
 
-        return view("register");
+        }
+
 
     }//end register()
     /**

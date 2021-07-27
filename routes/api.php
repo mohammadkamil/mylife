@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Comments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,28 @@ Route::group(
     ],
     function ($router) {
         Route::resource('posts', 'PostsController');
+
     }
 );
+Route::group(
+    [
+        'middleware' => 'api',
+        'namespace'  => 'App\Http\Controllers',
+    ],
+    function ($router) {
+        Route::get('commentbyid', "ComentsController@commentbyid");
+        Route::resource('comments', 'ComentsController');
+
+    }
+);
+Route::group(
+    [
+        'middleware' => 'api',
+        'namespace'  => 'App\Http\Controllers',
+    ],
+    function ($router) {
+        Route::resource('like', 'LikeController');
+
+    }
+);
+

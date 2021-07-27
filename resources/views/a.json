@@ -1,0 +1,26 @@
+{
+    "post": {
+        "data": [{
+            "id": 2,
+            "post": "sasasa",
+            "user_id": 1,
+            "liked": 0,
+            "created_at": "2021-07-27T04:01:14.000000Z",
+            "updated_at": "2021-07-27T04:01:14.000000Z",
+            "comment": [],
+            "like": []
+        }],
+        "path": "http://127.0.0.1:8000/api/posts",
+        "per_page": 1,
+        "next_page_url": "http://127.0.0.1:8000/api/posts?cursor=eyJ1cGRhdGVkX2F0IjoiMjAyMS0wNy0yNyAxMjowMToxNCIsIl9wb2ludHNUb05leHRJdGVtcyI6dHJ1ZX0",
+        "prev_page_url": "http://127.0.0.1:8000/api/posts?cursor=eyJ1cGRhdGVkX2F0IjoiMjAyMS0wNy0yNyAxMjowMToxNCIsIl9wb2ludHNUb05leHRJdGVtcyI6ZmFsc2V9"
+    },
+    "user": {
+        "id": 1,
+        "name": "kamil kamil",
+        "email": "a@gmail.com",
+        "email_verified_at": null,
+        "created_at": "2021-07-26T04:32:22.000000Z",
+        "updated_at": "2021-07-26T04:32:22.000000Z"
+    }
+}
