@@ -68,55 +68,31 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 |GET/HEAD| /|index| App\Http\Controllers\UserController@index| web|
 |POST |api/auth/login| |App\Http\Controllers\AuthController@login| api|
 |POST| api/auth/logout| | App\Http\Controllers\AuthController@logout| auth:api|
-|GET/HEAD| api/auth/profile| | App\Http\Controllers\AuthController@profile| api
-auth:api|
-|POST| api/auth/refresh| | App\Http\Controllers\AuthController@refresh| api
-auth:api|
+|GET/HEAD| api/auth/profile| | App\Http\Controllers\AuthController@profile| api auth:api|
+|POST| api/auth/refresh| | App\Http\Controllers\AuthController@refresh| api auth:api|
 |POST| api/auth/register| | App\Http\Controllers\AuthController@register| api|
-|GET/HEAD |api/commentbyid| | App\Http\Controllers\ComentsController@commentbyid| api
-auth:api|
-|GET/HEAD| api/comments| comments.index| App\Http\Controllers\ComentsController@index| api
-auth:api|
-|POST| api/comments| comments.store| App\Http\Controllers\ComentsController@store |api
-auth:api|
-|GET/HEAD |api/comments/create |comments.create| App\Http\Controllers\ComentsController@create |api
-auth:api|
-|DELETE |api/comments/{comment} |comments.destroy |App\Http\Controllers\ComentsController@destroy| api
-auth:api|
-|PUT/PATCH |api/comments/{comment} |comments.update| App\Http\Controllers\ComentsController@update| api
-auth:api|
-|GET/HEAD |api/comments/{comment}|comments.show|App\Http\Controllers\ComentsController@show|api
-auth:api|
-|GET/HEAD|api/comments/{comment}/edit|comments.edit|App\Http\Controllers\ComentsController@edit|api
-auth:api|
-|POST|api/like|like.store|App\Http\Controllers\LikeController@store|api
-auth:api|
-|GET/HEAD|api/like|like.index|App\Http\Controllers\LikeController@index|api
-auth:api|
-|GET/HEAD|api/like/create|like.create|App\Http\Controllers\LikeController@create|api
-auth:api|
-|PUT/PATCH|api/like/{like}|like.update|App\Http\Controllers\LikeController@update|api
-auth:api|
-|DELETE|api/like/{like}|like.destroy|App\Http\Controllers\LikeController@destroy|api
-auth:api|
-|GET/HEAD|api/like/{like}|like.show|App\Http\Controllers\LikeController@show|api
-auth:api|
-|GET/HEAD|api/like/{like}/edit|like.edit|App\Http\Controllers\LikeController@edit|api
-auth:api|
-|GET/HEAD|api/posts|posts.index|App\Http\Controllers\PostsController@index|api
-auth:api|
-|POST|api/posts|posts.store|App\Http\Controllers\PostsController@store|api
-auth:api|
-|GET/HEAD|api/posts/create|posts.create|App\Http\Controllers\PostsController@create|api
-auth:api|
-|DELETE|api/posts/{post}|posts.destroy|App\Http\Controllers\PostsController@destroy|api
-auth:api|
-|PUT/PATCH|api/posts/{post}|posts.update|App\Http\Controllers\PostsController@update|api
-auth:api|
-|GET/HEAD|api/posts/{post}|posts.show|App\Http\Controllers\PostsController@show|api
-auth:api|
-|GET/HEAD|api/posts/{post}/edit|posts.edit|App\Http\Controllers\PostsController@edit|api
-auth:api|
+|GET/HEAD |api/commentbyid| | App\Http\Controllers\ComentsController@commentbyid| api auth:api|
+|GET/HEAD| api/comments| comments.index| App\Http\Controllers\ComentsController@index| api auth:api|
+|POST| api/comments| comments.store| App\Http\Controllers\ComentsController@store |api auth:api|
+|GET/HEAD |api/comments/create |comments.create| App\Http\Controllers\ComentsController@create |api auth:api|
+|DELETE |api/comments/{comment} |comments.destroy |App\Http\Controllers\ComentsController@destroy| api auth:api|
+|PUT/PATCH |api/comments/{comment} |comments.update| App\Http\Controllers\ComentsController@update| api auth:api|
+|GET/HEAD |api/comments/{comment}|comments.show|App\Http\Controllers\ComentsController@show|api auth:api|
+|GET/HEAD|api/comments/{comment}/edit|comments.edit|App\Http\Controllers\ComentsController@edit|api auth:api|
+|POST|api/like|like.store|App\Http\Controllers\LikeController@store|api auth:api|
+|GET/HEAD|api/like|like.index|App\Http\Controllers\LikeController@index|api auth:api|
+|GET/HEAD|api/like/create|like.create|App\Http\Controllers\LikeController@create|api auth:api|
+|PUT/PATCH|api/like/{like}|like.update|App\Http\Controllers\LikeController@update|api auth:api|
+|DELETE|api/like/{like}|like.destroy|App\Http\Controllers\LikeController@destroy|api auth:api|
+|GET/HEAD|api/like/{like}|like.show|App\Http\Controllers\LikeController@show|api auth:api|
+|GET/HEAD|api/like/{like}/edit|like.edit|App\Http\Controllers\LikeController@edit|api auth:api|
+|GET/HEAD|api/posts|posts.index|App\Http\Controllers\PostsController@index|api auth:api|
+|POST|api/posts|posts.store|App\Http\Controllers\PostsController@store|api auth:api|
+|GET/HEAD|api/posts/create|posts.create|App\Http\Controllers\PostsController@create|api auth:api|
+|DELETE|api/posts/{post}|posts.destroy|App\Http\Controllers\PostsController@destroy|api auth:api|
+|PUT/PATCH|api/posts/{post}|posts.update|App\Http\Controllers\PostsController@update|api auth:api|
+|GET/HEAD|api/posts/{post}|posts.show|App\Http\Controllers\PostsController@show|api auth:api|
+|GET/HEAD|api/posts/{post}/edit|posts.edit|App\Http\Controllers\PostsController@edit|api auth:api|
 |GET/HEAD|index|index2|App\Http\Controllers\UserController@index|web|
 |GET/HEAD|login|login|App\Http\Controllers\UserController@login|web|
 |GET/HEAD|logout|logout|App\Http\Controllers\UserController@logout|web|
