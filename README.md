@@ -64,7 +64,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ### API LINK
 
 |Method| URI Name| Action| Middleware|
-|GET|HEAD| /index| App\Http\Controllers\UserController@index| web|
+|--------|---------|--------|-----------|
+|GET/HEAD| /index| App\Http\Controllers\UserController@index| web|
 |POST |api/auth/login |App\Http\Controllers\AuthController@login| api|
 |POST| api/auth/logout| App\Http\Controllers\AuthController@logout| api|
 auth:api
