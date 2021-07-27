@@ -124,7 +124,7 @@
                                 } else {
                                     $("#post-body").
                                     append(
-                                        '<div class="card" style="margin-bottom:1.5%"><div class="card-body"><p class="card-text">No Post</p></div></div>'
+                                        '<div class="card" style="margin-bottom:1.5%" id="nopost"><div class="card-body"><p class="card-text">No Post</p></div></div>'
                                     );
 
                                 }
@@ -286,6 +286,7 @@
                     post['id'] + ')">delete</a></div></div>';
                 $("#post-body").
                 prepend(appendpost);
+                $("#nopost").remove();
                 // $("#post-body").children("div[class=card]:last").remove();
                 // $(".card:last").remove();
 
@@ -470,7 +471,7 @@
             var formData = {
                 // 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 token: '{{ $_COOKIE['jwt'] }}',
-                post_id:id
+                post_id: id
 
 
             };
@@ -499,10 +500,10 @@
                     comments.forEach(element => {
                         console.log(user);
                         $("#view-post-body").
-                            append('<div class="card" style="margin-bottom:1.5%" onclick="viewpost(' +
-                                element['id'] + ')"><div class="card-body" ><p class="card-text">' +
-                                element['coment'] +
-                                '</p></div></div>');
+                        append('<div class="card" style="margin-bottom:1.5%" onclick="viewpost(' +
+                            element['id'] + ')"><div class="card-body" ><p class="card-text">' +
+                            element['coment'] +
+                            '</p></div></div>');
                         // if (user['id'] == element['user_id']) {
                         //     $("#view-post-body").
                         //     append('<div class="card" style="margin-bottom:1.5%" onclick="viewpost(' +
@@ -560,8 +561,19 @@
                 dataType: "json",
                 encode: true,
             }).done(function(data) {
-                $("#card_" + id).remove();
+                var totalcard = 0;
                 alert("Successfully delete post");
+
+                $("#card_" + id).remove();
+                $('#post-body .card').each(function() {
+                    totalcard = totalcard + 1;
+                });
+                if (totalcard == 0) {
+                    $("#post-body").
+                    append(
+                        '<div class="card" style="margin-bottom:1.5%" id="nopost"><div class="card-body"><p class="card-text">No Post</p></div></div>'
+                    );
+                }
             }).fail(function(jqXHR, textStatus, errorThrown) {
 
 

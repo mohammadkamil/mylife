@@ -29,7 +29,7 @@ class ComentsController extends Controller
      */
     public function index()
     {
-        $comment=Comments::orderBy('created_at', 'desc')->cursorPaginate(1);
+        $comment=Comments::orderBy('created_at', 'desc')->cursorPaginate(5);
         // $comments = $this->user->posts()->get(['id', 'post', 'user_id','liked']);
         return response()->json(
             [
@@ -41,7 +41,7 @@ class ComentsController extends Controller
 
     public function commentbyid(Request $request)
     {
-        $comment=Comments::with('post')->where("post_id","=",$request->post_id)->orderBy('created_at', 'desc')->cursorPaginate(1);
+        $comment=Comments::with('post')->where("post_id","=",$request->post_id)->orderBy('created_at', 'desc')->cursorPaginate(5);
         $post=Posts::find($request->post_id);     // $comments = $this->user->posts()->get(['id', 'post', 'user_id','liked']);
         return response()->json(
             [

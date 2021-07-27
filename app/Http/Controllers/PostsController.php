@@ -27,7 +27,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $post=Posts::with('comment','like')->orderBy('updated_at', 'desc')->cursorPaginate(1);
+        $post=Posts::with('comment','like')->orderBy('updated_at', 'desc')->cursorPaginate(5);
         // $post=Posts::with('comment','like')->orderBy('updated_at', 'desc')->get()->toArray();
         // $posts = $this->user->posts()->get(['id', 'post', 'user_id','liked']);
         return response()->json(
